@@ -26,7 +26,9 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": ""
+    "test": "",
+    "dev": "webpack",
+    "typings:install": "typings install"
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
