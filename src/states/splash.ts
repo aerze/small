@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import {centerGameObjects} from '../utils.ts'
+import {centerGameObjects} from '../utils'
 
 export class SplashState extends Phaser.State {
   loaderBg: Phaser.Sprite
@@ -17,10 +17,14 @@ export class SplashState extends Phaser.State {
     // load your assets
     //
     this.load.image('mushroom', 'assets/images/mushroom2.png')
+
+    this.load.image('clickable', 'assets/images/clickable.png')
+
+    this.load.image('timerBar', './assets/images/loader-bar.png')
   }
 
   create () {
-    this.game.state.start('Game')
+    this.game.state.start('Menu')
   }
 
 }
