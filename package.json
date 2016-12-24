@@ -1,5 +1,5 @@
 {
-  "name": "hello-phaser ",
+  "name": "small",
   "description": "",
   "version": "0.1.0",
   "homepage": "https://github.com/Michael Giambalvo/hello-phaser",
@@ -31,6 +31,7 @@
     "typings:install": "typings install"
   },
   "devDependencies": {
+    "@types/webfontloader": "^1.6.27",
     "browser-sync": "^2.11.2",
     "browser-sync-webpack-plugin": "^1.0.1",
     "gulp": "3.x.x",
@@ -40,7 +41,7 @@
     "gulp-webpack-build": "0.x.x",
     "json-loader": "^0.5.1",
     "ts-loader": "^0.8.1",
-    "typescript": "^1.8.9",
+    "typescript": "^2.1.4",
     "typings": "^0.7.9",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.7.0"

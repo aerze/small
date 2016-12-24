@@ -31,7 +31,7 @@ export class ClickerGame extends Phaser.State {
   }
 
   create() {
-    this.physics.startSystem(Phaser.Physics.P2JS)
+    this.physics.startSystem(Phaser.Physics.ARCADE)
     this.setupGameObjects()
   }
 
@@ -50,10 +50,12 @@ export class ClickerGame extends Phaser.State {
 
   handleGameStart() {
     this.active = true
+    this.clickable.enableEmitter()
   }
 
   handleGameEnd() {
     this.active = false
+    this.clickable.disableEmitter();
     this.showEndScreen()
   }
 
