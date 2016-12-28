@@ -3,17 +3,16 @@ import { Clickable } from '../sprites/clickable'
 import { ScoreText } from '../texts/scoreText'
 import { EndScreen } from '../groups/endScreen'
 
-import { TimerText } from '../texts/timerText'
-import { TimerBar } from '../images/timerBar'
 import { TimerGroup } from '../groups/timerGroup'
 
+import { CrayonText } from '../texts/CrayonText'
 import { centerGameObjects } from '../utils'
 
 export class ClickerGame extends Phaser.State {
   clickable: Clickable
   timerGroup: TimerGroup
   endScreen: EndScreen
-  scoreText: ScoreText
+  scoreText: CrayonText
   score: number
   active: boolean
 
@@ -41,10 +40,11 @@ export class ClickerGame extends Phaser.State {
 
   setupGameObjects() {
     const { centerX, centerY, height } = this.game.world
-    this.clickable = new Clickable(this.game, centerX, centerY, this.handleClick, this )
-    this.scoreText = new ScoreText(this.game, '0')
+    this.clickable = new Clickable(this.game, centerX, centerY, this.handleClick, this)
     this.timerGroup = new TimerGroup(this.game, this.handleGameStart, this.handleGameEnd, this)
     this.endScreen = new EndScreen(this.game)
+    this.scoreText = new CrayonText(this.game, this.game.world.width - 25, 25, 40, 'right')
+    this.scoreText.anchor.setTo(1, 0)
     // const test = this.game.add.text(100, 100, this.game.world.width.toString(), {})
   }
 
@@ -66,7 +66,7 @@ export class ClickerGame extends Phaser.State {
   }
 
   showEndScreen() {
-    this.scoreText.setText('');
+    this.scoreText.setText('')
     this.endScreen.show(this.score)
   }
 }

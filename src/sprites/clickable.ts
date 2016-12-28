@@ -12,13 +12,13 @@ export class Clickable extends Phaser.Sprite {
     super(game, x, y, 'clickable')
     this.emitter = game.add.emitter(x, y, 100)
     this.emitter.makeParticles('clickable', [0], 100, true, true)
-    this.emitter.maxParticleSpeed.setTo(3000, -3000);
-    this.emitter.minParticleSpeed.setTo(-3000, -3000);
-    this.emitter.angularDrag = 90;
-    this.emitter.maxParticleScale = 2.5;
-    this.emitter.minParticleScale = 2.5;
+    this.emitter.maxParticleSpeed.setTo(1000, -1000);
+    this.emitter.minParticleSpeed.setTo(-1000, 1000);
+    this.emitter.angularDrag = 30;
+    this.emitter.maxParticleScale = 0.5;
+    this.emitter.minParticleScale = 0.5;
     this.emitter.gravity = 200;
-    this.emitter.bounce.setTo(0.5, 0.5);
+    this.emitter.bounce.setTo(0.8, 0.8);
 
     this.game = game
     this.anchor.setTo(0.5)
@@ -32,7 +32,7 @@ export class Clickable extends Phaser.Sprite {
   }
 
   fireEmitter() {
-    this.emitter.start(true, 2000, null, 1, true)
+    this.emitter.start(true, Phaser.Timer.SECOND * 2, null, 1, true)
   }
 
   public enableEmitter() {
@@ -41,10 +41,5 @@ export class Clickable extends Phaser.Sprite {
 
   public disableEmitter() {
     this.emitterCallback.detach();
-  }
-
-  destroy() {
-    this.emitter.destroy();
-    super.destroy();
   }
 }
