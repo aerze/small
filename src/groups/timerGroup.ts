@@ -1,4 +1,6 @@
 import * as Phaser from 'phaser'
+import SmallGame from '../game'
+
 import { CrayonText } from '../texts/CrayonText'
 import { TimerBar } from '../images/timerBar'
 
@@ -20,7 +22,7 @@ export class TimerGroup extends Phaser.Group {
   readyTimerEvent: Phaser.TimerEvent
   gameTimerEvent: Phaser.TimerEvent
 
-  constructor(game: Phaser.Game, onGameStart: Function, onGameEnd: Function, context: Phaser.State) {
+  constructor(game: SmallGame, onGameStart: Function, onGameEnd: Function, context: Phaser.State) {
     super(game, game.world, 'TimerGroup')
 
     this.game = game

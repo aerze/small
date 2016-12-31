@@ -1,16 +1,16 @@
-import * as Phaser from 'phaser';
+import * as Phaser from 'phaser'
 import { MenuItem } from '../texts/menuItem'
 import { centerGameObjects } from '../utils'
-import SmallGame from '../game';
+import SmallGame from '../game'
 
-const GAMELIST = ['Menu']
+const GAMELIST = ['Menu', 'Demo']
 
 export class TapperGame extends Phaser.State {
   menuItems: Array<MenuItem>
   game: SmallGame
 
   init() {
-    this.menuItems = []
+    this.menuItems = [];
   }
 
   preload() {

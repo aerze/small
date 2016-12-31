@@ -23,8 +23,8 @@ export class MenuState extends Phaser.State {
     })
     
     this.menuItems.push(
-      new MenuItem(this.game, 100, 400, 'Login', () => {
-        this.game.router.start('Tapper')
+      new MenuItem(this.game, 100, 400, 'MiniState', () => {
+        this.game.router.start('mini')
       })
     )
   }

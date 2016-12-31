@@ -8,6 +8,9 @@ import { GameState } from './states/game'
 import { MenuState } from './states/menu'
 import { ClickerGame } from './states/clicker'
 import { TapperGame } from './states/tapper'
+
+import MiniState from './states/MiniState'
+
 import Router from './router'
 
 export default class SmallGame extends Phaser.Game {
@@ -25,6 +28,8 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('Menu', MenuState, false)
     this.state.add('Clicker', ClickerGame, false)
     this.state.add('Tapper', TapperGame, false)
+    this.state.add('mini', MiniState, false)
+    
     this.router = new Router(this)
 
     console.log(Phaser.VERSION);
