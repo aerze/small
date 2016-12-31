@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser'
+import SmallGame from '../game'
 
 interface OnClickCallback {
     (n: MenuItem): void;   
@@ -6,7 +7,7 @@ interface OnClickCallback {
 
 export class MenuItem extends Phaser.Text {
 
-  constructor(game: Phaser.Game, x: number, y: number, text: string, onClick: OnClickCallback) {
+  constructor(game: SmallGame, x: number, y: number, text: string, onClick: OnClickCallback) {
     super(game, x, y, text, {})
 
     this.game = game
