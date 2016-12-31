@@ -27,6 +27,7 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('Tapper', TapperGame, false)
     this.router = new Router(this)
 
+    console.log(Phaser.VERSION);
     this.state.start('Boot')
   }
 }
