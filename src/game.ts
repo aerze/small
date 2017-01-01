@@ -8,6 +8,7 @@ import { GameState } from './states/game'
 import { MenuState } from './states/menu'
 import { ClickerGame } from './states/clicker'
 import { TapperGame } from './states/tapper'
+import ClickerMini from './states/mini/clicker'
 
 import MiniState from './states/MiniState'
 
@@ -27,6 +28,7 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('Game', GameState, false)
     this.state.add('Menu', MenuState, false)
     this.state.add('Clicker', ClickerGame, false)
+    this.state.add('ClickerMini', ClickerMini, false)
     this.state.add('Tapper', TapperGame, false)
     this.state.add('mini', MiniState, false)
     

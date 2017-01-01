@@ -13,13 +13,16 @@ export default class Router {
     
     window.addEventListener('hashchange', (event) => {
       const hash = event.newURL.split('#')[1] || 'Menu'
-      console.log('state', hash)
+      console.log('Router::', hash)
+      this.list.push(hash)
+
       this.game.state.start(hash)
     })
   }
 
   start(key: string, clearWorld?: boolean, clearCache?: boolean, args?: any[]) {
-    location.hash = key;
+    location.hash = key
+    console.log(this.list)
     // this.game.state.start(key, clearWorld, clearCache, args)
   }
 

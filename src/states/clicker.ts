@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import SmallGame from '../game'
 import { Clickable } from '../sprites/clickable'
 import { ScoreText } from '../texts/scoreText'
 import { EndScreen } from '../groups/endScreen'
@@ -9,6 +10,7 @@ import { CrayonText } from '../texts/CrayonText'
 import { centerGameObjects } from '../utils'
 
 export class ClickerGame extends Phaser.State {
+  game: SmallGame
   clickable: Clickable
   timerGroup: TimerGroup
   endScreen: EndScreen
