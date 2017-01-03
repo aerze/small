@@ -3,7 +3,7 @@ import { MenuItem } from '../texts/menuItem'
 import { centerGameObjects } from '../utils'
 import SmallGame from '../game';
 
-const GAMELIST = ['Clicker', 'ClickerMini']
+const GAMELIST = ['Clicker', 'Mini', 'ClickerMini']
 
 export class MenuState extends Phaser.State {
   menuItems: Array<MenuItem>

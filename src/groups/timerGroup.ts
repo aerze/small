@@ -28,10 +28,15 @@ export class TimerGroup extends Phaser.Group {
     this.game = game
 
     this.bar = new TimerBar(game)
-    this.timerText = new CrayonText(game, 25, 25)
+    this.timerText = new CrayonText(game, { x: 25, y: 25 })
     this.timerText.visible = false;
 
-    this.countdownText = new CrayonText(game, game.world.centerX, game.world.centerY - 125, 80, 'center')
+    this.countdownText = new CrayonText(game, {
+      x: game.world.centerX,
+      y: game.world.centerY - 125,
+      fontsize: 80,
+      align: 'center' 
+    })
     this.countdownText.anchor.setTo(0.5)
 
 

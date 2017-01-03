@@ -27,10 +27,10 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('Splash', SplashState, false)
     this.state.add('Game', GameState, false)
     this.state.add('Menu', MenuState, false)
+    this.state.add('Mini', MiniState, false)
     this.state.add('Clicker', ClickerGame, false)
     this.state.add('ClickerMini', ClickerMini, false)
     this.state.add('Tapper', TapperGame, false)
-    this.state.add('mini', MiniState, false)
     
     this.router = new Router(this)
 

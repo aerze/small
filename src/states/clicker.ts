@@ -45,7 +45,12 @@ export class ClickerGame extends Phaser.State {
     this.clickable = new Clickable(this.game, centerX, centerY, this.handleClick, this)
     this.timerGroup = new TimerGroup(this.game, this.handleGameStart, this.handleGameEnd, this)
     this.endScreen = new EndScreen(this.game)
-    this.scoreText = new CrayonText(this.game, this.game.world.width - 25, 25, 40, 'right')
+    this.scoreText = new CrayonText(this.game, {
+      x: this.game.world.width - 25,
+      y: 25,
+      fontsize: 40,
+      align: 'right'
+    })
     this.scoreText.anchor.setTo(1, 0)
     // const test = this.game.add.text(100, 100, this.game.world.width.toString(), {})
   }

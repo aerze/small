@@ -6,7 +6,7 @@ export default class ClickerMini extends MiniState {
   game: SmallGame
   
   init() {
-    console.log(this.other)
+    
   }
 
 }

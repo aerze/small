@@ -2,7 +2,7 @@ import * as Phaser from 'phaser'
 
 const style = {
   font: 'Nunito',
-  fontSize: 60,
+  fontSize: 45,
   fill: '#23993f',
   align: 'center'
 }
