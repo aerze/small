@@ -2,7 +2,7 @@ import * as Phaser from 'phaser'
 import SmallGame from '../game'
 
 interface OnClickCallback {
-    (n: MenuItem): void;   
+    (n: MenuItem): void
 }
 
 export class MenuItem extends Phaser.Text {

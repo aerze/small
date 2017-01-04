@@ -5,7 +5,7 @@ import SmallGame from './game';
 
 export default class Router {
   public game: SmallGame
-  public list: Array<string>
+  public list: string[]
 
   constructor(game: SmallGame) {
     this.game = game

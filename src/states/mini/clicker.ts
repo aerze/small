@@ -17,6 +17,7 @@ export default class ClickerMini extends MiniState {
   }
 
   public preload() {
+    super.preload()
     this.load.image('clickable', 'assets/images/clickable.png')
   }
 

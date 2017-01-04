@@ -1,5 +1,5 @@
-export const centerGameObjects = (objects: Array<Phaser.Sprite>) => {
-  objects.forEach(function (object) {
+export const centerGameObjects = (objects: Phaser.Sprite[]) => {
+  objects.forEach((object) => {
     object.anchor.setTo(0.5)
   })
 }

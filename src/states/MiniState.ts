@@ -36,8 +36,9 @@ export default class MiniState extends Phaser.State {
     this.points = 0
   }
 
-  // public preload() {
-  // }
+  public preload() {
+    this.load.bitmapFont('rudiment', 'assets/fonts/rudiment_801.png', 'assets/fonts/rudiment_801.fnt')
+  }
 
   public create() {
     this.createEndScreen()

@@ -10,6 +10,7 @@
     "quotemark": [true, "single", "jsx-double"],
     "semicolon": [true, "never"],
     "curly": false,
-    "no-reference": false
+    "no-reference": false,
+    "interface-name": [true, "never-prefix"]
   }
 }

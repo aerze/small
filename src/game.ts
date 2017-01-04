@@ -3,12 +3,10 @@
 import * as Phaser from 'phaser'
 
 import { BootState } from './states/boot'
-import { ClickerGame } from './states/clicker'
 import { GameState } from './states/game'
 import { MenuState } from './states/menu'
 import ClickerMini from './states/mini/clicker'
 import { SplashState } from './states/splash'
-import { TapperGame } from './states/tapper'
 
 import MiniState from './states/MiniState'
 
@@ -27,14 +25,12 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('Splash', SplashState, false)
     this.state.add('Game', GameState, false)
     this.state.add('Menu', MenuState, false)
-    this.state.add('Mini', MiniState, false)
-    this.state.add('Clicker', ClickerGame, false)
+    this.state.add('MiniState', MiniState, false)
     this.state.add('ClickerMini', ClickerMini, false)
-    this.state.add('Tapper', TapperGame, false)
 
     this.router = new Router(this)
 
-    console.log(Phaser.VERSION);
+    console.log(Phaser.VERSION)
     this.state.start('Boot')
   }
 }
