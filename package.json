@@ -28,7 +28,7 @@
   "scripts": {
     "test": "",
     "dev": "webpack",
-    "typings:install": "typings install"
+    "typings:install": "typings install --global"
   },
   "devDependencies": {
     "@types/webfontloader": "^1.6.27",

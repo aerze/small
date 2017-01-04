@@ -7,8 +7,10 @@ A simple example using Phaser with TypeScript and WebPack. Based on [lean/phaser
 ##Setup
 
 ```sh
+npm install -g typescript tslint 
 npm install
 
-webpack
+npm run typings:install
+npm run dev
 ```
 
