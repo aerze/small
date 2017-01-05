@@ -17,7 +17,7 @@ export default class App {
   }
 
   private routes(app: express.Application) {
-    const clientDir = path.join(__dirname, '../../client')
+    const clientDir = path.join(__dirname, '../../client/public')
     app.use(express.static(clientDir))
   }
 }
