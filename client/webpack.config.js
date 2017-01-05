@@ -10,7 +10,7 @@ var definePlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: {
     app: [
-      path.resolve(__dirname, 'client/src/index.ts')
+      path.resolve(__dirname, 'src/index.ts')
     ]
   },
   devtool: 'cheap-source-map',
@@ -19,11 +19,11 @@ module.exports = {
   },
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, 'client/dist'),
-    publicPath: './client/dist/',
+    path: path.resolve(__dirname, 'public/dist'),
+    publicPath: './dist/',
     filename: 'bundle.js'
   },
-  watch: true,
+  watch: false,
   plugins: [
     definePlugin,
     new BrowserSyncPlugin({
@@ -31,7 +31,7 @@ module.exports = {
       port: process.env.PORT || 3000,
       open: false,
       server: {
-        baseDir: ['./client', './build']
+        baseDir: ['./public', './build']
       }
     }),
 
@@ -43,6 +43,9 @@ module.exports = {
         loader: 'ts-loader'
       }
     ]
+  },
+  ts: {
+    configFileName: './tsconfig.json'
   },
   node: {
     fs: "empty"

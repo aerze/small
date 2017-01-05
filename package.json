@@ -26,12 +26,12 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "test": "",
-    "dev": "webpack",
+    "start": "npm run build:client && npm run build:server && npm run server",
+    "build:client": "webpack --config ./client/webpack.config.js",
+    "watch:client": "webpack --config ./client/webpack.config.js -w",
     "server": "node ./server/dist/index",
-    "server:build": "tsc -p ./server/tsconfig.json",
-    "server:build:watch": "tsc -w -p ./server/tsconfig.json",
-    "typings:install": "typings install --global"
+    "build:server": "tsc -p ./server/tsconfig.json",
+    "watch:server": "tsc -w -p ./server/tsconfig.json"
   },
   "devDependencies": {
     "@types/express": "^4.0.34",
