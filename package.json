@@ -47,6 +47,7 @@
     "webpack-dev-server": "^1.7.0"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "webfontloader": "^1.6.24"
   }
 }

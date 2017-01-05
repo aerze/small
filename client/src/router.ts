@@ -1,7 +1,7 @@
 /// <reference path="./game.ts"/>
 
 import * as Phaser from 'phaser'
-import SmallGame from './game';
+import SmallGame from './game'
 
 export default class Router {
   public game: SmallGame

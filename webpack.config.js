@@ -10,7 +10,7 @@ var definePlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: {
     app: [
-      path.resolve(__dirname, 'src/index.ts')
+      path.resolve(__dirname, 'client/src/index.ts')
     ]
   },
   devtool: 'cheap-source-map',
@@ -19,8 +19,8 @@ module.exports = {
   },
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
+    path: path.resolve(__dirname, 'client/dist'),
+    publicPath: './client/dist/',
     filename: 'bundle.js'
   },
   watch: true,
@@ -31,7 +31,7 @@ module.exports = {
       port: process.env.PORT || 3000,
       open: false,
       server: {
-        baseDir: ['./', './build']
+        baseDir: ['./client', './build']
       }
     }),
 

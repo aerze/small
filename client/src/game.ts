@@ -1,4 +1,4 @@
-/// <reference path="../typings/index.d.ts"/>
+/// <reference path="../../typings/index.d.ts"/>
 /// <reference path="../lib/phaser.d.ts"/>
 import * as Phaser from 'phaser'
 

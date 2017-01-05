@@ -7,9 +7,9 @@
   },
   "exclude": [
     "node_modules",
-    "dist",
-    "build",
-    "lib",
+    "client/assets",
+    "client/dist",
+    "client/lib",
     "typings"
   ]
 }
