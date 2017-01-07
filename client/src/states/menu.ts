@@ -6,7 +6,7 @@ import { centerGameObjects } from '../utils'
 const GAMELIST = ['ClickerMini', 'CatchMini']
 
 export class MenuState extends Phaser.State {
-  public menuItems: Array<MenuItem>
+  public menuItems: MenuItem[]
   public game: SmallGame
 
   public init() {

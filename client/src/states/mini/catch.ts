@@ -8,6 +8,8 @@ export default class CatchMini extends MiniState {
 
   constructor(game: SmallGame) {
     super(game)
+    this.GAME_TIMER_SECONDS = 3
+    this.DEBUG = true
   }
 
   public init() {

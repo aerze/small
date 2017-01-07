@@ -4,18 +4,13 @@ import SmallGame from '../game'
 import { EndScreen } from '../groups/endScreen'
 import { CENTER, CrayonText, CrayonTextConfig, LEFT, RIGHT } from '../texts/CrayonText'
 
-const GAME_TIMER_SECONDS = 5
-const GAME_TIMER_MILLISECONDS = Phaser.Timer.SECOND * GAME_TIMER_SECONDS
-
-const COUNTDOWN_TIMER_SECONDS = 3
-const COUNTDOWN_TIMER_MILLISECONDS = Phaser.Timer.SECOND * COUNTDOWN_TIMER_SECONDS
-
 export default class MiniState extends Phaser.State {
   public game: SmallGame
-  public points: number
   public scoreText: CrayonText
-  public active: Boolean
-  public inactive: Boolean
+  public points: number
+  public active: boolean
+  public inactive: boolean
+  public DEBUG: boolean
   // END SCREEN STUFF
   public endScreen: EndScreen
 
@@ -27,13 +22,25 @@ export default class MiniState extends Phaser.State {
   public gameTimerText: CrayonText
   public gameTimerEnd: Phaser.TimerEvent
 
+  protected GAME_TIMER_SECONDS: number
+  protected COUNTDOWN_TIMER_SECONDS: number
+
+  private GAME_TIMER_MILLISECONDS: number
+  private COUNTDOWN_TIMER_MILLISECONDS: number
+
   constructor(game: SmallGame) {
     super()
     this.game = game
+
+    this.GAME_TIMER_SECONDS = 5
+    this.COUNTDOWN_TIMER_SECONDS = 3
+
   }
 
   public init() {
     this.points = 0
+    this.GAME_TIMER_MILLISECONDS = Phaser.Timer.SECOND * this.GAME_TIMER_SECONDS
+    this.COUNTDOWN_TIMER_MILLISECONDS = Phaser.Timer.SECOND * this.COUNTDOWN_TIMER_SECONDS
   }
 
   public preload() {
@@ -44,6 +51,9 @@ export default class MiniState extends Phaser.State {
     this.createEndScreen()
     this.createTimers()
     this.createScoreText()
+    if (this.DEBUG) {
+      this.createDebug()
+    }
   }
 
   public createScoreText(): void {
@@ -84,18 +94,18 @@ export default class MiniState extends Phaser.State {
     this.countdownTimerText.anchor.setTo(0.5)
 
     this.gameTimer = this.game.time.create()
-    this.gameTimerEnd = this.gameTimer.add(GAME_TIMER_MILLISECONDS, this.handleGameEnd, this)
+    this.gameTimerEnd = this.gameTimer.add(this.GAME_TIMER_MILLISECONDS, this.handleGameEnd, this)
 
     this.countdownTimer = this.game.time.create()
-    this.countdownTimerEnd = this.countdownTimer.add(COUNTDOWN_TIMER_MILLISECONDS, this.handleGameStart, this)
+    this.countdownTimerEnd = this.countdownTimer.add(this.COUNTDOWN_TIMER_MILLISECONDS, this.handleGameStart, this)
 
-    this.countdownTimerText.setText(COUNTDOWN_TIMER_SECONDS.toFixed(0))
+    this.countdownTimerText.setText(this.COUNTDOWN_TIMER_SECONDS.toFixed(0))
     this.countdownTimer.start();
 
   }
 
   public update() {
-    const countdownSeconds = COUNTDOWN_TIMER_SECONDS - Math.floor(this.countdownTimer.seconds)
+    const countdownSeconds = this.COUNTDOWN_TIMER_SECONDS - Math.floor(this.countdownTimer.seconds)
     if (countdownSeconds > 0) this.countdownTimerText.setText(countdownSeconds.toFixed(0))
     else this.countdownTimerText.setText('')
 
@@ -133,6 +143,12 @@ export default class MiniState extends Phaser.State {
   public set score(v: number) {
     this.points = v
     this.scoreText.setText(this.points.toString())
+  }
+
+  private createDebug() {
+    const { width, height } = this.game.world
+    const debugText = this.game.debug.text(`${width}/${height}`, width - 100, 20, 'blue')
+    console.log(debugText)
   }
 
 }
