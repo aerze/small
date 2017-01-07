@@ -2,12 +2,12 @@ import * as Phaser from 'phaser'
 import {centerGameObjects} from '../utils'
 
 export class SplashState extends Phaser.State {
-  loaderBg: Phaser.Sprite
-  loaderBar: Phaser.Sprite
+  public loaderBg: Phaser.Sprite
+  public loaderBar: Phaser.Sprite
 
-  init () {}
+  public init () {}
 
-  preload () {
+  public preload () {
     this.loaderBg = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBg')
     this.loaderBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loaderBar')
     centerGameObjects([this.loaderBg, this.loaderBar])
@@ -24,7 +24,7 @@ export class SplashState extends Phaser.State {
     this.load.image('timerBar', './assets/images/loader-bar.png')
   }
 
-  create () {
+  public create () {
     this.game.state.start('Menu')
   }
 

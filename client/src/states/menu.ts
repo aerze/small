@@ -1,19 +1,23 @@
 import * as Phaser from 'phaser';
+import SmallGame from '../game';
 import { MenuItem } from '../texts/menuItem'
 import { centerGameObjects } from '../utils'
-import SmallGame from '../game';
 
-const GAMELIST = ['Clicker', 'Mini', 'ClickerMini']
+const GAMELIST = ['MiniState', 'ClickerMini']
 
 export class MenuState extends Phaser.State {
-  menuItems: Array<MenuItem>
-  game: SmallGame
+  public menuItems: Array<MenuItem>
+  public game: SmallGame
 
-  init() {
+  public init() {
     this.menuItems = []
   }
 
-  preload() {
+  public preload() {
+    this.load.bitmapFont('rudiment', 'assets/fonts/rudiment_801.png', 'assets/fonts/rudiment_801.fnt')
+  }
+
+  public create() {
     GAMELIST.forEach((name, index) => {
       const menuItem = new MenuItem(this.game, 100, (index + 1) * 100, name,
         () => { this.game.router.start(name) }
@@ -21,15 +25,7 @@ export class MenuState extends Phaser.State {
 
       this.menuItems.push(menuItem)
     })
-    
-    this.menuItems.push(
-      new MenuItem(this.game, 100, 400, 'MiniState', () => {
-        this.game.router.start('mini')
-      })
-    )
   }
 
-  create() {}
-
-  render() {}
+  public render() {}
 }

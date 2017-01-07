@@ -19,11 +19,11 @@ module.exports = {
   },
   output: {
     pathinfo: true,
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public/dist'),
     publicPath: './dist/',
     filename: 'bundle.js'
   },
-  watch: true,
+  watch: false,
   plugins: [
     definePlugin,
     new BrowserSyncPlugin({
@@ -31,7 +31,7 @@ module.exports = {
       port: process.env.PORT || 3000,
       open: false,
       server: {
-        baseDir: ['./', './build']
+        baseDir: ['./public', './build']
       }
     }),
 
@@ -43,6 +43,9 @@ module.exports = {
         loader: 'ts-loader'
       }
     ]
+  },
+  ts: {
+    configFileName: './tsconfig.json'
   },
   node: {
     fs: "empty"

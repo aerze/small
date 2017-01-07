@@ -5,5 +5,12 @@
    * - the name of an NPM module which has a "main" file that exports a config object
    * - a relative path to a JSON file
    */
-  "extends": "tslint:stable"
+  "extends": "tslint:recommended",
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "semicolon": [true, "never"],
+    "curly": false,
+    "no-reference": false,
+    "interface-name": [true, "never-prefix"]
+  }
 }
