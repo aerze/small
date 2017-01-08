@@ -10,7 +10,6 @@ export default class MiniState extends Phaser.State {
   public points: number
   public active: boolean
   public inactive: boolean
-  public DEBUG: boolean
   // END SCREEN STUFF
   public endScreen: EndScreen
 
@@ -51,9 +50,6 @@ export default class MiniState extends Phaser.State {
     this.createEndScreen()
     this.createTimers()
     this.createScoreText()
-    if (this.DEBUG) {
-      this.createDebug()
-    }
   }
 
   public createScoreText(): void {
@@ -144,11 +140,4 @@ export default class MiniState extends Phaser.State {
     this.points = v
     this.scoreText.setText(this.points.toString())
   }
-
-  private createDebug() {
-    const { width, height } = this.game.world
-    const debugText = this.game.debug.text(`${width}/${height}`, width - 100, 20, 'blue')
-    console.log(debugText)
-  }
-
 }
