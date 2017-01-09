@@ -11,6 +11,8 @@ import MiniState from './states/MiniState'
 
 import Router from './router'
 
+import * as sio from 'socket.io-client'
+
 export default class SmallGame extends Phaser.Game {
   public router: Router
 
@@ -20,6 +22,9 @@ export default class SmallGame extends Phaser.Game {
 
     super(width, height, Phaser.AUTO, 'content', null)
 
+    //Connects to Socket.IO instance on webserver
+    const socket = sio()
+
     this.state.add('Boot', BootState, false)
     this.state.add('Splash', SplashState, false)
     this.state.add('Game', GameState, false)
@@ -28,7 +33,6 @@ export default class SmallGame extends Phaser.Game {
     this.state.add('ClickerMini', ClickerMini, false)
 
     this.router = new Router(this)
-
     console.log(Phaser.VERSION)
     this.state.start('Boot')
   }
