@@ -9,10 +9,16 @@ const port = 8080
 const server = http.createServer(app)
 
 //Setup Socket.IO
+//Trying things here before extracting out to another class
 const io = sio(server)
+
+let numberOfClients: number = 0
 io.on('connection', (socket) => {
-  console.log('a user connected')
-  socket.on('disconnect', () => console.log('user disconnected'))
+
+  console.log(`Clients connected: ${++numberOfClients}`)
+  socket.on('disconnect', () => {
+    console.log(`Clients connected: ${--numberOfClients}`)
+  })
 })
 
 server.listen(port)
