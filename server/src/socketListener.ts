@@ -51,14 +51,12 @@ function joinGame(playerName: string,
                   server: SocketIO.Server): void {
   game.addPlayer(playerName)
   socket.join(game.code)
-  server.in(game.code).emit('user joined', playerName)
   server.in(game.code).emit('current users', game.players)
 }
 
 function leaveGame(playerName: string, game: Game | undefined, server: SocketIO.Server): void {
   if (game) {
     game.removePlayer(playerName)
-    server.in(game.code).emit('user left', playerName)
     server.in(game.code).emit('current users', game.players)
   }
 }
