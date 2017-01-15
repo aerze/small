@@ -1,8 +1,14 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import * as logger from 'morgan'
 import * as http from 'http'
 import * as path from 'path'
 import * as sio from 'socket.io'
+import Game from './game'
+
+import db from './db'
+
+import { findGame } from './utilities'
 
 import socketListener from './socketListener'
 
@@ -35,5 +41,6 @@ export default class App {
   private routes(app: express.Application) {
     const clientDir = path.join(__dirname, '../../client/public')
     app.use(express.static(clientDir))
+    app.use(bodyParser.json())
   }
 }

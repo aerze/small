@@ -3,8 +3,9 @@ export default class Game {
 	public code: string
 	public players: Array<string> = []
 
-	constructor() {
+	constructor(creator: string) {
 		this.code = generateGameCode()
+		this.addPlayer(creator)
 	}
 
 	public addPlayer(playerToAdd) {
