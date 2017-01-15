@@ -25,7 +25,6 @@ export default function socketListener(io: SocketIO.Server) {
     })
 
     console.log(`Clients connected: ${++connectedClients}`)
-
     socket.on('disconnect', () => {
       leaveGame(name, currentGame, io)
       console.log(`Clients connected: ${--connectedClients}`)

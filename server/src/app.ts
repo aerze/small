@@ -19,15 +19,12 @@ export default class App {
     this.routes(this.app)
   }
 
-  public start(port: number): void {
+  public start(port: number, callback): void {
     this.server.listen(port)
-    this.server.on('listening', () => {
-      const address = this.server.address()
-      console.log(`listening on port ${address.port}`)
-    })
+    this.server.on('listening', callback)
   }
 
-  public stop(): void {
+  public stop(callback): void {
     this.server.close()
   }
 

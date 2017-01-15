@@ -5,26 +5,37 @@ import 'jest'
 // Was trying to test socket in here, but app would never open the server socket
 // Not sure how to fix this...
 
-// const app = new App()
-
-
 describe('basic socket test', () => {
 
-	// beforeEach((done) => {
-	// 	app.start(8080)
-	// 	done()
+	let app = new App()
+	app.start(8080, () => {
+		console.log("started express server")
+	})
+
+	// Was trying to have server startup/teardown with every test but this was not working
+	// beforeEach(function(done) {
+	// 	app.start(8080, () => {
+	// 		console.log("started")
+	// 		done()
+	// 	})
 	// })
 
-	test('can detect a connected client', (done) => {
-		// const client = sio("http://localhost:8080")
+	// afterEach(function(done) {
+	// 	app.stop(done)
+	// })
 
-		// client.once("connect", () => {
-		// 	expect(app.connectedClients).toBe(0)
-		// 	client.disconnect()
-		// 	done()
-		// })
-		// done()
-		// app.stop()
+	it('can create game with 4 character code', function(done) {
+		const client = sio("http://localhost:8080")
+
+		client.once("connect", () => {
+			client.emit('create game')
+			client.addEventListener('game created', (code) => {
+				client.disconnect()
+				expect(code.length).toBe(4)
+				done()
+			})
+		})
+
 	})
 })
 
