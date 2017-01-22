@@ -93,5 +93,41 @@ describe('basic integration tests', () => {
 		})
 	})
 
+	it('sends notification when player leaves a game', function (done) {
+		const user1 = sio(baseUrl)
+		const user2 = sio(baseUrl)
+
+		user1.once('connect', () => {
+			user1.emit('create game', {
+				player: {
+					name: 'user1',
+					icon: 'icon1'
+				}
+			})
+			user1.addEventListener('create game successful', (response) => {
+				const user2JoinParams = {
+					player: {
+						name: 'user2',
+						icon: 'icon2'
+					},
+					game: {
+						code: response.game.code
+					}
+				}
+				user2.emit('join game', user2JoinParams)
+			})
+
+			user1.addEventListener('player connected', (response) => {
+				user2.disconnect()
+			})
+
+			user1.addEventListener('player disconnected', (response) => {
+				user1.disconnect()
+				expect(response.game.players.length).toBe(1)
+				done()
+			})
+		})
+	})
+
 })
 
