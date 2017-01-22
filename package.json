@@ -32,7 +32,8 @@
     "server": "node ./server/dist/index",
     "build:server": "tsc -p ./server/tsconfig.json",
     "watch:server": "tsc -w -p ./server/tsconfig.json",
-    "test": "npm run build:server && jest"
+    "test": "run-s build:server jest",
+    "jest": "jest"
   },
   "devDependencies": {
     "@types/body-parser": "0.0.33",
@@ -52,6 +53,7 @@
     "gulp-webpack-build": "0.x.x",
     "jest": "^18.1.0",
     "json-loader": "^0.5.1",
+    "npm-run-all": "^4.0.1",
     "ts-loader": "^0.8.1",
     "typescript": "^2.1.4",
     "webpack": "^1.7.3",
