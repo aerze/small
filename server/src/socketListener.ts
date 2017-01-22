@@ -1,7 +1,6 @@
 import Game from './game'
 import Player from './player'
-import db from './db'
-import { findGame, removeGame } from './utilities'
+import { findGame, removeGame, createPlayer, createGame as createGameInDb } from './db'
 
 export default function socketListener(io: SocketIO.Server) {
 
@@ -10,14 +9,12 @@ export default function socketListener(io: SocketIO.Server) {
     let player: Player | undefined
 
     socket.on('create game', (data) => {
-      player = new Player(data.player.name, data.player.icon)
-      db.players.push(player)
+      player = createPlayer(data.player.name, data.player.icon)
       game = createGame(player, socket)
     })
 
     socket.on('join game', (data) => {
-      player = new Player(data.player.name, data.player.icon)
-      db.players.push(player)
+      player = createPlayer(data.player.name, data.player.icon)
       if (game) leaveGame(player, game, socket, io)
       game = joinGame(player, data.game.code, socket, io)
     })
@@ -29,13 +26,12 @@ export default function socketListener(io: SocketIO.Server) {
 }
 
 function createGame(player: Player, socket: SocketIO.Socket): Game {
-  const game = new Game(player)
+  const game = createGameInDb(player)
   socket.emit('create game successful', {
     player: player,
     game: game
   })
   socket.join(game.code)
-  db.games.push(game)
   return game
 }
 
@@ -43,7 +39,7 @@ function joinGame(player: Player,
   code: string,
   socket: SocketIO.Socket,
   server: SocketIO.Server): Game | undefined {
-  const game = findGame(code, db.games)
+  const game = findGame(code)
   if (game) {
     game.addPlayer(player)
     socket.join(code)
@@ -70,7 +66,7 @@ function leaveGame(player: Player,
     game.removePlayer(player)
     socket.leave(game.code)
 
-    if (game.players.length === 0) removeGame(game, db.games)
+    if (game.players.length === 0) removeGame(game)
     else server.in(game.code).emit('player disconnected', {
       game: game
     })

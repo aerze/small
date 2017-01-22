@@ -1,7 +1,7 @@
 import App from './app'
 import Game from './game'
 import Player from './player'
-import db from './db'
+import { createPlayer, createGame } from './db'
 
 import * as sio from 'socket.io-client'
 
@@ -36,10 +36,8 @@ describe('basic integration tests', () => {
 	})
 
 	it('get current users after joining', function (done) {
-		//Create game and user
-		const user1 = new Player('user1', 'icon1')
-		const game = new Game(user1)
-		db.games.push(game)
+		const user1 = createPlayer('user1', 'icon1')
+		const game = createGame(user1)
 
 		const joinParams = {
 			player: {

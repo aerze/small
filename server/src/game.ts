@@ -1,12 +1,11 @@
-import { generateGameCode } from './utilities'
 import Player from './player'
 
 export default class Game {
 	public code: string
 	public players: Array<Player> = []
 
-	constructor(creator: Player) {
-		this.code = generateGameCode()
+	constructor(creator: Player, code: string) {
+		this.code = code
 		this.addPlayer(creator)
 	}
 
