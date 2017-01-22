@@ -14,6 +14,10 @@ describe('basic integration tests', () => {
 		console.log("started express server")
 	})
 
+	afterAll(() => {
+		app.stop(() => console.log("closing express server"))
+	})
+
 	it('can create a game and get 4 character code', function (done) {
 		const socket = sio(baseUrl)
 		socket.once('connect', () => {
