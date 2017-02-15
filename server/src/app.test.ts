@@ -10,9 +10,7 @@ const baseUrl = 'http://localhost:8080'
 describe('basic integration tests', () => {
 
 	let app = new App()
-	app.start(8080, () => {
-		console.log("started express server")
-	})
+	app.start(8080, () => {})
 
 	afterAll(() => {
 		app.stop(() => console.log("closing express server"))

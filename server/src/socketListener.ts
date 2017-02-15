@@ -22,6 +22,10 @@ export default function socketListener(io: SocketIO.Server) {
     socket.on('disconnect', () => {
       if (player && game) leaveGame(player, game, socket, io)
     })
+
+    socket.on('start game', () => {
+      if (game && game.players.length > 1) startGame(game, io)
+    })
   })
 }
 
@@ -71,4 +75,11 @@ function leaveGame(player: Player,
       game: game
     })
   }
+}
+
+function startGame(game: Game, server: SocketIO.Server) {
+  const miniToPlay = game.startGame()
+  server.in(game.code).emit('start mini', {
+    stateName: miniToPlay
+  })
 }
