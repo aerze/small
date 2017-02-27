@@ -5,6 +5,8 @@ export default function rankPlayers(results: Array<GameResult>, mini: string): A
 	switch (mini) {
 		case "clicker":
 			return rankClicker(results)
+        case "catcher":
+			return rankCatcher(results)
 	}
 	return results
 }
@@ -13,4 +15,9 @@ export default function rankPlayers(results: Array<GameResult>, mini: string): A
 // Order the results from highest to lowest
 function rankClicker(results: Array<GameResult>) {
 	return results.sort((a, b) => b.score - a.score)
+}
+
+// Catchers who caught in the least time did the best
+function rankCatcher(results: Array<GameResult>) {
+	return results.sort((a, b) => a.time - b.time)
 }
