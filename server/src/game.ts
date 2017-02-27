@@ -1,14 +1,19 @@
 import Player from './player'
 import MetaResult from './metaResult'
+import MiniResult from './miniResult'
+import Mini from './mini'
 
 export default class Game {
 	public code: string
 	public players: Array<Player> = []
+	private server: SocketIO.Server
 	private metaResults: Array<MetaResult> = []
-	private minisToPlay: Array<string> = []
+	private minisToPlay: Array<Mini> = []
+	private currentMini: Mini | undefined
 
-	constructor(creator: Player, code: string) {
+	constructor(creator: Player, code: string, server: SocketIO.Server) {
 		this.code = code
+		this.server = server
 		this.addPlayer(creator)
 	}
 
@@ -24,12 +29,22 @@ export default class Game {
 		this.metaResults = this.players.map(player =>
 			( { id: player.id, score: 0 } )
 		)
-		this.minisToPlay = ["clicker", "clicker", "clicker"]
-		return this.startMini()
+		//TODO: Randomly select which games to create
+		this.minisToPlay = [new Mini("clicker"), new Mini("catcher"), new Mini("clicker")]
+		return this.startNextMini()
 	}
 
-	public startMini() : string | undefined {
-		return this.minisToPlay.pop()
+	public startNextMini() : Mini | undefined {
+		this.currentMini = this.minisToPlay.pop()
+		return this.currentMini
+	}
+
+	//Player reports their score
+	//Check if they are the last player and if so complete the mini
+	public playerReportsMiniScore(miniResult: MiniResult) {
+		if (this.currentMini) {
+			this.currentMini.addResult(miniResult)
+		}
 	}
 
 }
