@@ -26,6 +26,14 @@ export default function socketListener(io: SocketIO.Server) {
     socket.on('start game', () => {
       if (game && game.players.length > 1) startGame(game, io)
     })
+
+    socket.on('mini result', (data) => {
+      if (game && player) game.playerReportsMiniScore({
+        id: player.id,
+        score: data.result.score,
+        time: data.result.time
+      })
+    })
   })
 }
 

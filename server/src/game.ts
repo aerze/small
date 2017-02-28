@@ -28,7 +28,7 @@ export default class Game {
 			( { id: player.id, score: 0 } )
 		)
 		//TODO: Randomly select which games to create
-		this.minisToPlay = [new Mini("clicker"), new Mini("catcher"), new Mini("clicker")]
+		this.minisToPlay = [new Mini("clicker", this.players.length), new Mini("catcher", this.players.length), new Mini("clicker", this.players.length)]
 		return this.startNextMini()
 	}
 
@@ -38,7 +38,6 @@ export default class Game {
 	}
 
 	//Player reports their score
-	//Check if they are the last player and if so complete the mini
 	public playerReportsMiniScore(miniResult: MiniResult) {
 		if (this.currentMini) {
 			this.currentMini.addResult(miniResult)

@@ -4,9 +4,11 @@ import rankPlayers from './rankPlayers'
 export default class Mini {
     public type: string
     private miniResults: Array<MiniResult> = []
+    private playerCount: number = 0
 
-    constructor(type: string) {
+    constructor(type: string, playerCount: number) {
         this.type = type
+        this.playerCount = playerCount
     }
 
     public addResult(miniResult: MiniResult) {
@@ -15,5 +17,10 @@ export default class Mini {
 
     public getResults() : Array<MiniResult> {
         return rankPlayers(this.miniResults, this.type)        
+    }
+
+    public isMiniComplete() : boolean {
+        if (this.miniResults.length == this.playerCount) return true
+        return false
     }
 }
