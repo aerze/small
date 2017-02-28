@@ -6,14 +6,12 @@ import Mini from './mini'
 export default class Game {
 	public code: string
 	public players: Array<Player> = []
-	private server: SocketIO.Server
 	private metaResults: Array<MetaResult> = []
 	private minisToPlay: Array<Mini> = []
 	private currentMini: Mini | undefined
 
-	constructor(creator: Player, code: string, server: SocketIO.Server) {
+	constructor(creator: Player, code: string) {
 		this.code = code
-		this.server = server
 		this.addPlayer(creator)
 	}
 

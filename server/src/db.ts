@@ -13,8 +13,8 @@ export function findGame(code: string): Game | undefined {
   return db.games.find(g => g.code === code)
 }
 
-export function createGame(player: Player, socket: SocketIO.Server): Game {
-	const game = new Game(player, generateGameCode(), socket)
+export function createGame(player: Player): Game {
+	const game = new Game(player, generateGameCode())
 	db.games.push(game)
 	return game
 }

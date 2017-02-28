@@ -10,7 +10,7 @@ export default function socketListener(io: SocketIO.Server) {
 
     socket.on('create game', (data) => {
       player = createPlayer(data.player.name, data.player.icon)
-      game = createGame(player, socket, io)
+      game = createGame(player, socket)
     })
 
     socket.on('join game', (data) => {
@@ -29,8 +29,8 @@ export default function socketListener(io: SocketIO.Server) {
   })
 }
 
-function createGame(player: Player, socket: SocketIO.Socket, server: SocketIO.Server): Game {
-  const game = createGameInDb(player, server)
+function createGame(player: Player, socket: SocketIO.Socket): Game {
+  const game = createGameInDb(player)
   socket.emit('create game successful', {
     player: player,
     game: game
