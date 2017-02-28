@@ -11,6 +11,10 @@
     "semicolon": [true, "never"],
     "curly": false,
     "no-reference": false,
-    "interface-name": [true, "never-prefix"]
+    "interface-name": [true, "never-prefix"],
+    "ordered-imports": [false],
+    "object-literal-sort-keys": false,
+    "trailing-comma": [false],
+    "arrow-parens": false
   }
 }
