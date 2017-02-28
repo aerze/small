@@ -20,7 +20,7 @@ module.exports = {
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'public/dist'),
-    publicPath: './dist/',
+    publicPath: './public/',
     filename: 'bundle.js'
   },
   watch: false,
@@ -31,7 +31,7 @@ module.exports = {
       port: process.env.PORT || 3000,
       open: false,
       server: {
-        baseDir: ['./public', './build']
+        baseDir: ['./client/public']
       }
     }),
 
