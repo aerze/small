@@ -4,6 +4,7 @@ import MiniResult from './miniResult'
 import Mini from './mini'
 
 export default class Game {
+
   public code: string
   public players: Player[] = []
   private server: SocketIO.Server
@@ -11,9 +12,8 @@ export default class Game {
   private minisToPlay: Mini[] = []
   private currentMini: Mini | undefined
 
-  constructor(creator: Player, code: string, server: SocketIO.Server) {
+  constructor(creator: Player, code: string) {
     this.code = code
-    this.server = server
     this.addPlayer(creator)
   }
 
@@ -28,7 +28,7 @@ export default class Game {
   public startGame() {
     this.metaResults = this.players.map(player => ( { id: player.id, score: 0 } ) )
     // TODO: Randomly select which games to create
-    this.minisToPlay = [new Mini('clicker'), new Mini('catcher'), new Mini('clicker')]
+    this.minisToPlay = [new Mini('clicker', this.players.length), new Mini('catcher', this.players.length), new Mini('clicker', this.players.length)]
     return this.startNextMini()
   }
 

@@ -10,7 +10,7 @@ export default function socketListener(io: SocketIO.Server) {
 
     socket.on('create game', (data) => {
       player = createPlayer(data.player.name, data.player.icon)
-      game = createGame(player, socket, io)
+      game = createGame(player, socket)
     })
 
     socket.on('join game', (data) => {
@@ -26,11 +26,19 @@ export default function socketListener(io: SocketIO.Server) {
     socket.on('start game', () => {
       if (game && game.players.length > 1) startGame(game, io)
     })
+
+    socket.on('mini result', (data) => {
+      if (game && player) game.playerReportsMiniScore({
+        id: player.id,
+        score: data.result.score,
+        time: data.result.time
+      })
+    })
   })
 }
 
-function createGame(player: Player, socket: SocketIO.Socket, server: SocketIO.Server): Game {
-  const game = createGameInDb(player, server)
+function createGame(player: Player): Game {
+  const game = createGameInDb(player)
   socket.emit('create game successful', { player, game })
   socket.join(game.code)
   return game
