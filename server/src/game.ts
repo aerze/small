@@ -28,7 +28,9 @@ export default class Game {
   public startGame() {
     this.metaResults = this.players.map(player => ( { id: player.id, score: 0 } ) )
     // TODO: Randomly select which games to create
-    this.minisToPlay = [new Mini('clicker', this.players.length), new Mini('catcher', this.players.length), new Mini('clicker', this.players.length)]
+    this.minisToPlay = [new Mini('clicker', this.players.length),
+                        new Mini('catcher', this.players.length),
+                        new Mini('clicker', this.players.length)]
     return this.startNextMini()
   }
 

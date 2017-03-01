@@ -20,8 +20,8 @@ export default class Mini {
         return rankPlayers(this.miniResults, this.type)
     }
 
-    public isMiniComplete() : boolean {
-        if (this.miniResults.length == this.playerCount) return true
+    public isMiniComplete(): boolean {
+        if (this.miniResults.length === this.playerCount) return true
         return false
     }
 }
