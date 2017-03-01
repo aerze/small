@@ -39,15 +39,13 @@ export default function socketListener(io: SocketIO.Server) {
 
 function createGame(player: Player, socket: SocketIO.Socket): Game {
   const game = createGameInDb(player)
-  socket.emit('create game successful', {
-    player: player,
-    game: game
-  })
+  socket.emit('create game successful', { player, game })
   socket.join(game.code)
   return game
 }
 
-function joinGame(player: Player,
+function joinGame(
+  player: Player,
   code: string,
   socket: SocketIO.Socket,
   server: SocketIO.Server): Game | undefined {
@@ -55,14 +53,10 @@ function joinGame(player: Player,
   if (game) {
     game.addPlayer(player)
     socket.join(code)
-    socket.emit('join game successful', {
-      player: player,
-      game: game
-    })
-    server.in(code).emit('player connected', { game: game })
+    socket.emit('join game successful', { player, game })
+    server.in(code).emit('player connected', { game })
     return game
-  }
-  else {
+  } else {
     socket.emit('join game failed', {
       error: 'that game does not exist'
     })
@@ -70,7 +64,8 @@ function joinGame(player: Player,
   }
 }
 
-function leaveGame(player: Player,
+function leaveGame(
+  player: Player,
   game: Game | undefined,
   socket: SocketIO.Socket,
   server: SocketIO.Server): void {
@@ -79,9 +74,7 @@ function leaveGame(player: Player,
     socket.leave(game.code)
 
     if (game.players.length === 0) removeGame(game)
-    else server.in(game.code).emit('player disconnected', {
-      game: game
-    })
+    else server.in(game.code).emit('player disconnected', { game })
   }
 }
 
