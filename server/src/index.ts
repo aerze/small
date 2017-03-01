@@ -1,14 +1,10 @@
-import * as http from 'http'
-
 import App from './app'
 
-const app = new App().app
+const app = new App()
 const port = 8080
-
-const server = http.createServer(app)
-server.listen(port)
-server.on('listening', () => {
-  const address = server.address()
-  console.log(`listening on port ${address.port}`)
+app.start(port, () => {
+  console.log(`listening on port ${port}`)
 })
+
+
 
