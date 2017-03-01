@@ -28,11 +28,14 @@ export default function socketListener(io: SocketIO.Server) {
     })
 
     socket.on('mini result', (data) => {
-      if (game && player) game.playerReportsMiniScore({
-        id: player.id,
-        score: data.result.score,
-        time: data.result.time
-      })
+      if (game && player) {
+        const miniCompleted = game.playerReportsMiniScore({
+            id: player.id,
+            score: data.result.score,
+            time: data.result.time
+        })
+        if (miniCompleted) miniComplete(game, io)
+      }
     })
   })
 }
@@ -82,5 +85,12 @@ function startGame(game: Game, server: SocketIO.Server) {
   const miniToPlay = game.startGame()
   server.in(game.code).emit('start mini', {
     stateName: miniToPlay
+  })
+}
+
+function miniComplete(game: Game, server: SocketIO.Server) {
+  const miniResults = game.completeMini()
+  server.in(game.code).emit('mini complete', {
+    ...miniResults
   })
 }
