@@ -37,7 +37,7 @@ export default function socketListener(io: SocketIO.Server) {
   })
 }
 
-function createGame(player: Player): Game {
+function createGame(player: Player, socket: SocketIO.Socket): Game {
   const game = createGameInDb(player)
   socket.emit('create game successful', { player, game })
   socket.join(game.code)
