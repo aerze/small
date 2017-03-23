@@ -3,12 +3,12 @@ import {Mushroom} from '../sprites/mushroom'
 import {setResponsiveWidth} from '../utils'
 
 export class GameState extends Phaser.State {
-  mushroom: Mushroom
+  public mushroom: Mushroom
 
-  init () {}
-  preload () {}
+  public init () {}
+  public preload () {}
 
-  create () {
+  public create () {
     let banner = this.add.text(this.game.world.centerX, this.game.height - 30, 'Phaser + ES6 + Webpack', {})
     banner.font = 'Nunito'
     banner.fontSize = 40
@@ -27,7 +27,7 @@ export class GameState extends Phaser.State {
     this.game.add.existing(this.mushroom)
   }
 
-  render () {
+  public render () {
     if (window['__DEV__']) {
       this.game.debug.spriteInfo(this.mushroom, 32, 32)
     }
