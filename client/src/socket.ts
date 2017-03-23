@@ -25,21 +25,25 @@ export default class Socket {
   }
 
   public createGame(player: ServerPlayer): Promise<CreateGameResponse> {
-    return new Promise((resolve, reject) => {
-      this.handleTimeout('CREATE_GAME_FAILED', reject)
-      this.clientSocket.emit('create game', { player })
-      this.clientSocket.on('create game successful', (res: CreateGameResponse) => {
-        this.storeGame(res)
-        resolve(res)
+    this.clientSocket.emit('create game', { player })
+    return this.createEventPromise('create game')
+      .then((data: CreateGameResponse) => {
+        this.storeGame(data)
+        return data
       })
-    })
   }
 
   /**
-   * Enforces a timeout by rejecting a promise
+   * Creates a promise for the expected event response
    */
-  private handleTimeout(errorName: string, reject) {
-    setTimeout(() => reject(new Error(errorName)), this.TIMEOUT)
+  private createEventPromise(eventName: string): Promise<Object> {
+    return new Promise((resolve, reject) => {
+      const fireReject = () => reject(new Error(`${eventName} failed`))
+      const fireResolve = res => resolve(res)
+
+      setTimeout(fireReject, this.TIMEOUT)
+      this.clientSocket.on(`${eventName} successful`, fireResolve)
+    })
   }
 
   private storeGame({ game, player }: CreateGameResponse) {
