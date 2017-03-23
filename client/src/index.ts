@@ -1,3 +1,5 @@
 import SmallGame from './game'
 
-new SmallGame()
+const small = new SmallGame()
+
+window['small'] = small;
