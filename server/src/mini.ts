@@ -1,6 +1,10 @@
 import MiniResult from './miniResult'
 import rankPlayers from './rankPlayers'
 
+/**
+ * Represents a single minigame and its scores
+ * For example, a catcher minigame, or clicker minigame
+ */
 export default class Mini {
     public type: string
 

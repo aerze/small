@@ -1,6 +1,7 @@
 import Game from './game'
 import Player from './player'
 import { findGame, removeGame, createPlayer, createGame as createGameInDb } from './db'
+import GameStateNotifier from './gameStateNotifier'
 
 export default function socketListener(io: SocketIO.Server) {
 
@@ -10,7 +11,7 @@ export default function socketListener(io: SocketIO.Server) {
 
     socket.on('create game', (data) => {
       player = createPlayer(data.player.name, data.player.icon)
-      game = createGame(player, socket)
+      game = createGame(player, socket, io)
     })
 
     socket.on('join game', (data) => {
@@ -29,19 +30,18 @@ export default function socketListener(io: SocketIO.Server) {
 
     socket.on('mini result', (data) => {
       if (game && player) {
-        const miniCompleted = game.playerReportsMiniScore({
+        game.reportMiniResult({
             id: player.id,
             score: data.result.score,
             time: data.result.time
         })
-        if (miniCompleted) miniComplete(game, io)
       }
     })
   })
 }
 
-function createGame(player: Player, socket: SocketIO.Socket): Game {
-  const game = createGameInDb(player)
+function createGame(player: Player, socket: SocketIO.Socket, server: SocketIO.Server): Game {
+  const game = createGameInDb(player, new GameStateNotifier(server))
   socket.emit('create game successful', { player, game })
   socket.join(game.code)
   return game
@@ -88,9 +88,3 @@ function startGame(game: Game, server: SocketIO.Server) {
   })
 }
 
-function miniComplete(game: Game, server: SocketIO.Server) {
-  const miniResults = game.completeMini()
-  server.in(game.code).emit('mini complete', {
-    ...miniResults
-  })
-}

@@ -1,5 +1,6 @@
 import Game from './game'
 import Player from './player'
+import GameStateNotifier from './gameStateNotifier'
 
 let games: Game[] = []
 let players: Player[] = []
@@ -13,8 +14,8 @@ export function findGame(code: string): Game | undefined {
   return db.games.find(g => g.code === code)
 }
 
-export function createGame(player: Player): Game {
-  const game = new Game(player, generateGameCode())
+export function createGame(player: Player, notifier: GameStateNotifier): Game {
+  const game = new Game(player, generateGameCode(), notifier)
   db.games.push(game)
   return game
 }

@@ -34,27 +34,36 @@ describe('basic integration tests', () => {
   })
 
   it('get current users after joining', function (done) {
-    const user1 = createPlayer('user1', 'icon1')
-    const game = createGame(user1)
+    const user1 = sio(baseUrl)
+    user1.once('connect', () => {
+       user1.emit('create game', {
+         player: {
+           name: 'user1',
+           icon: 'icon1'
+         }
+       })
+       user1.addEventListener('create game successful', (response) => {
+         const joinParams = {
+           player: {
+             name: 'user2',
+             icon: 'icon2'
+           },
+           game: {
+             code: response.game.code
+           }
+         }
 
-    const joinParams = {
-      player: {
-        name: 'user2',
-        icon: 'icon2'
-      },
-      game: {
-        code: game.code
-      }
-    }
-
-    const joinerSocket = sio(baseUrl)
-    joinerSocket.once('connect', () => {
-      joinerSocket.emit('join game', joinParams)
-      joinerSocket.addEventListener('join game successful', (response) => {
-        joinerSocket.disconnect()
-        expect(response.game.players.length).toBe(2)
-        done()
-      })
+         const user2 = sio(baseUrl)
+         user2.once('connect', () => {
+           user2.emit('join game', joinParams)
+           user2.addEventListener('join game successful', (response) => {
+             user1.disconnect()
+             user2.disconnect()
+             expect(response.game.players.length).toBe(2)
+             done()
+           })
+         })
+       })
     })
   })
 
@@ -182,6 +191,8 @@ describe('basic integration tests', () => {
 		user1.addEventListener('mini complete', (result) => {
 			expect(result.miniRanking[0].id).toBe(player2.id)
       expect(result.miniRanking[1].id).toBe(player1.id)
+      user1.disconnect()
+      user2.disconnect()
 			done()
 		})
 	})
