@@ -9,7 +9,7 @@ export default class GameStateNotifier {
 
 	public notifyPlayingUsers(code: string, socketMessage: SocketMessage) {
 	  this.server.in(code).emit(socketMessage.message, {
-	  	socketMessage
+	  	...socketMessage.content
 	  })
 	}
 

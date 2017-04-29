@@ -42,7 +42,7 @@ export default function socketListener(io: SocketIO.Server) {
 
 function createGame(player: Player, socket: SocketIO.Socket, server: SocketIO.Server): Game {
   const game = createGameInDb(player, new GameStateNotifier(server))
-  socket.emit('create game successful', { player, game })
+  socket.emit('create game successful', { player, game: serializedGame(game) })
   socket.join(game.code)
   return game
 }
@@ -56,8 +56,8 @@ function joinGame(
   if (game) {
     game.addPlayer(player)
     socket.join(code)
-    socket.emit('join game successful', { player, game })
-    server.in(code).emit('player connected', { game })
+    socket.emit('join game successful', { player, game: serializedGame(game) })
+    server.in(code).emit('player connected', { game: serializedGame(game) })
     return game
   } else {
     socket.emit('join game failed', {
@@ -77,7 +77,7 @@ function leaveGame(
     socket.leave(game.code)
 
     if (game.players.length === 0) removeGame(game)
-    else server.in(game.code).emit('player disconnected', { game })
+    else server.in(game.code).emit('player disconnected', { game: serializedGame(game) })
   }
 }
 
@@ -86,5 +86,12 @@ function startGame(game: Game, server: SocketIO.Server) {
   server.in(game.code).emit('start mini', {
     stateName: miniToPlay
   })
+}
+
+function serializedGame(game) {
+  return {
+    code: game.code,
+    players: game.players
+  }
 }
 
