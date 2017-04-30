@@ -10,7 +10,7 @@ export class Mushroom extends Phaser.Sprite {
 
   }
 
-  update() {
+  public update() {
     this.angle += 1
   }
 

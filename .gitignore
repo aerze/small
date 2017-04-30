@@ -4,3 +4,4 @@ typings/
 client/public/dist/
 dist/
 server/dist/
+cSpell.json

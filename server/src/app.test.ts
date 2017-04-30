@@ -136,60 +136,60 @@ describe('basic integration tests', () => {
     })
   })
 
-	it('goes through a single mini sequence', function (done) {
-		const user1 = sio(baseUrl)
-		const user2 = sio(baseUrl)
+  it('goes through a single mini sequence', function (done) {
+    const user1 = sio(baseUrl)
+    const user2 = sio(baseUrl)
 
-		let player1: any = {}
-		let player2: any = {}
+    let player1: any = {}
+    let player2: any = {}
 
-		user1.once('connect', () => {
-			user1.emit('create game', {
-				player: {
-					name: 'user1',
-					icon: 'icon1'
-				}
-			})
-		})
-		user1.addEventListener('create game successful', (response) => {
-			const user2JoinParams = {
-				player: {
-					name: 'user2',
-					icon: 'icon2'
-				},
-				game: {
-					code: response.game.code
-				}
-			}
-			player1 = response.player
-			user2.emit('join game', user2JoinParams)
-		})
+    user1.once('connect', () => {
+      user1.emit('create game', {
+        player: {
+          name: 'user1',
+          icon: 'icon1'
+        }
+      })
+    })
+    user1.addEventListener('create game successful', (response) => {
+      const user2JoinParams = {
+        player: {
+          name: 'user2',
+          icon: 'icon2'
+        },
+        game: {
+          code: response.game.code
+        }
+      }
+      player1 = response.player
+      user2.emit('join game', user2JoinParams)
+    })
 
-		user2.addEventListener('join game successful', (response) => {
-			player2 = response.player
-			user1.emit('start game')
-		})
+    user2.addEventListener('join game successful', (response) => {
+      player2 = response.player
+      user1.emit('start game')
+    })
 
-		user1.addEventListener('start mini', (mini) => {
-			user1.emit('mini result', {
-				result: {
-					score: 1,
-					time: 5
-				}
-			})
-		})
+    user1.addEventListener('start mini', (mini) => {
+      user1.emit('mini result', {
+        result: {
+          score: 1,
+          time: 5
+        }
+      })
+    })
 
-		user2.addEventListener('start mini', (mini) => {
-			user2.emit('mini result', {
-				result: {
-					score: 2,
-					time: 10
-				}
-			})
-		})
+    user2.addEventListener('start mini', (mini) => {
+      user2.emit('mini result', {
+        result: {
+          score: 2,
+          time: 10
+        }
+      })
+    })
 
-		user1.addEventListener('mini complete', (result) => {
-			expect(result.miniRanking[0].id).toBe(player2.id)
+    user1.addEventListener('mini complete', (result) => {
+      expect(result.miniRanking[0].id).toBe(player2.id)
       expect(result.miniRanking[1].id).toBe(player1.id)
       user1.disconnect()
       user2.disconnect()

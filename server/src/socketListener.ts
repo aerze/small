@@ -6,29 +6,35 @@ import GameStateNotifier from './gameStateNotifier'
 export default function socketListener(io: SocketIO.Server) {
 
   io.on('connection', (socket) => {
+    console.log('IO:connection')
     let game: Game | undefined
     let player: Player | undefined
 
     socket.on('create game', (data) => {
+      console.log('SOCKET: create game')
       player = createPlayer(data.player.name, data.player.icon)
       game = createGame(player, socket, io)
     })
 
     socket.on('join game', (data) => {
+      console.log('SOCKET: join game')
       player = createPlayer(data.player.name, data.player.icon)
       if (game) leaveGame(player, game, socket, io)
       game = joinGame(player, data.game.code, socket, io)
     })
 
     socket.on('disconnect', () => {
+      console.log('SOCKET: disconnect')
       if (player && game) leaveGame(player, game, socket, io)
     })
 
     socket.on('start game', () => {
+      console.log('SOCKET: start game')
       if (game && game.players.length > 1) startGame(game, io)
     })
 
     socket.on('mini result', (data) => {
+      console.log('SOCKET: mini result')
       if (game && player) {
         game.reportMiniResult({
             id: player.id,
