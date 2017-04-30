@@ -36,19 +36,8 @@ export default class Game {
 
   public startGame() {
     this.metaRanking = this.players.map(player => ( { id: player.id, score: 0 } ) )
-    // TODO: Randomly select which games to create
-    this.minisToPlay = [new Mini('clicker', this.players.length),
-                        new Mini('catcher', this.players.length),
-                        new Mini('clicker', this.players.length)]
-    return this.startNextMini()
-  }
-
-  public startNextMini(): Mini | undefined {
-    this.currentMini = this.minisToPlay.pop()
-    if (!this.currentMini) {
-      // TODO: Put code to end game here
-    }
-    return this.currentMini
+    this.minisToPlay = this.retrieveMinisToPlay()
+    this.startNextMini()
   }
 
   // Player reports their score
@@ -58,6 +47,27 @@ export default class Game {
       this.currentMini.addResult(miniResult)
     }
     if (this.currentMini && this.currentMini.isMiniComplete()) this.completeMini()
+  }
+
+  // TODO: This should randomly select minis to play instead of hardcoding
+  private retrieveMinisToPlay(): Mini[] {
+    return [new Mini('clicker', this.players.length),
+            new Mini('catcher', this.players.length),
+            new Mini('clicker', this.players.length)]
+  }
+
+  // Start the next minigame
+  // If there's no minigames left, then complete the metagame
+  private startNextMini() {
+    this.currentMini = this.minisToPlay.pop()
+
+    if (this.currentMini) {
+      this.gameStateNotifier.notifyPlayingUsers(this.code, 'start mini',
+        { stateName: this.currentMini.type })
+    }
+    else {
+      this.completeMeta()
+    }
   }
 
   private completeMini() {
@@ -72,6 +82,8 @@ export default class Game {
         metaRanking: this.metaRanking
       }
     )
+
+    this.startNextMini()
   }
 
   private completeMeta() {

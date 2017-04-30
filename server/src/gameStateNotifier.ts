@@ -1,5 +1,3 @@
-import SocketMessage from './socketMessage'
-
 export default class GameStateNotifier {
 	private server: SocketIO.Server
 

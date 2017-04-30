@@ -88,10 +88,7 @@ function leaveGame(
 }
 
 function startGame(game: Game, server: SocketIO.Server) {
-  const miniToPlay = game.startGame()
-  server.in(game.code).emit('start mini', {
-    stateName: miniToPlay
-  })
+  game.startGame()
 }
 
 function serializedGame(game) {
