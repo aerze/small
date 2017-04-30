@@ -66,22 +66,18 @@ export default class Game {
                                                           { ...metaResult, score: metaResult.score + 1} :
                                                           metaResult)
 
-    this.gameStateNotifier.notifyPlayingUsers(this.code, {
-      message: 'mini complete',
-      content: {
+    this.gameStateNotifier.notifyPlayingUsers(this.code, 'mini complete',
+      {
         miniRanking,
         metaRanking: this.metaRanking
       }
-    })
+    )
   }
 
   private completeMeta() {
-    this.gameStateNotifier.notifyPlayingUsers(this.code, {
-      message: 'meta complete',
-      content: {
-        metaRanking: this.metaRanking
-      }
-    })
+    this.gameStateNotifier.notifyPlayingUsers(this.code,
+      'meta complete', { metaRanking: this.metaRanking }
+    )
   }
 
   // TODO: This seems like a null object pattern hack to get around the not null check on current mini
